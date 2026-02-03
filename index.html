@@ -1,1 +1,274 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bayilerimiz</title>
+  <style>
+    :root{
+      --bg:#0b1220; --card:#111a2e; --muted:#9fb0d0; --text:#e8eefc;
+      --line:rgba(255,255,255,.10); --btn:#2a6bff; --btn2:#1a2542;
+      --ok:#19c37d;
+      --radius:16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+    body{ margin:0; background: radial-gradient(1200px 800px at 30% -10%, rgba(42,107,255,.35), transparent 60%),
+                        radial-gradient(900px 600px at 110% 10%, rgba(25,195,125,.25), transparent 60%),
+                        var(--bg);
+          color:var(--text); }
+    .wrap{ max-width:1100px; margin:0 auto; padding:28px 16px 60px; }
+    .hero{ display:flex; gap:18px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; }
+    h1{ font-size:28px; margin:0 0 6px; letter-spacing:-.02em; }
+    .sub{ color:var(--muted); margin:0; line-height:1.45; max-width:68ch; }
+    .panel{ margin-top:18px; background:rgba(17,26,46,.72); border:1px solid var(--line);
+            border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; }
+    .controls{ padding:16px; display:grid; grid-template-columns: 1fr 1fr 1.6fr;
+              gap:10px; border-bottom:1px solid var(--line); }
+    @media (max-width: 900px){ .controls{ grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 520px){ .controls{ grid-template-columns: 1fr; } }
+
+    .field{ display:flex; flex-direction:column; gap:6px; }
+    label{ font-size:12px; color:var(--muted); }
+    select,input{ background:rgba(10,16,32,.7); color:var(--text);
+                  border:1px solid var(--line); border-radius:12px;
+                  padding:10px 12px; outline:none; }
+    input::placeholder{ color:rgba(159,176,208,.75); }
+    .bar{ display:flex; gap:10px; align-items:center; padding:12px 16px; flex-wrap:wrap; }
+    .chip{ font-size:12px; color:var(--muted); border:1px solid var(--line);
+           padding:7px 10px; border-radius:999px; display:flex; gap:8px; align-items:center; }
+    .chip b{ color:var(--text); font-weight:600; }
+    .btn{ cursor:pointer; border:1px solid transparent; border-radius:12px; padding:10px 12px;
+          background:var(--btn); color:white; font-weight:650; letter-spacing:.01em; }
+    .btn.secondary{ background:var(--btn2); border-color:var(--line); color:var(--text); }
+    .btn:active{ transform: translateY(1px); }
+    .grow{ flex:1; }
+
+    .list{ padding:16px; display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+    @media (max-width: 900px){ .list{ grid-template-columns: 1fr; } }
+
+    .card{ background:rgba(10,16,32,.55); border:1px solid var(--line);
+           border-radius:var(--radius); padding:14px; }
+    .top{ display:flex; gap:10px; align-items:flex-start; justify-content:space-between; }
+    .name{ font-size:15px; font-weight:750; margin:0; }
+    .meta{ color:var(--muted); font-size:13px; margin:6px 0 0; line-height:1.35; }
+    .tags{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+    .tag{ font-size:12px; color:var(--muted); border:1px solid var(--line);
+          padding:5px 8px; border-radius:999px; }
+    .actions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+    .a{ text-decoration:none; display:inline-flex; gap:8px; align-items:center;
+        padding:9px 10px; border-radius:12px; border:1px solid var(--line);
+        background:rgba(17,26,46,.5); color:var(--text); font-weight:650; font-size:13px; }
+    .a.primary{ background:rgba(42,107,255,.18); border-color:rgba(42,107,255,.35); }
+    .a.ok{ background:rgba(25,195,125,.14); border-color:rgba(25,195,125,.35); }
+    .empty{ padding:26px 16px; color:var(--muted); text-align:center; }
+    .footnote{ margin-top:10px; color:rgba(159,176,208,.8); font-size:12px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div>
+        <h1>Bayilerimiz</h1>
+        <p class="sub">İl ve ilçe seçerek veya arama yaparak size en uygun noktayı bulun. Kartlarda <b>Ara</b> ve <b>Yol Tarifi</b> kısayolları var.</p>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="controls">
+        <div class="field">
+          <label for="city">İl</label>
+          <select id="city"></select>
+        </div>
+        <div class="field">
+          <label for="district">İlçe</label>
+          <select id="district"></select>
+        </div>
+        <div class="field">
+          <label for="q">Ara (isim / adres / etiket)</label>
+          <input id="q" placeholder="Örn: Muratpaşa, Merkez, Klima..." />
+        </div>
+      </div>
+
+      <div class="bar">
+        <button class="btn secondary" id="sortAZ" title="Mağaza ismine göre A→Z">A → Z</button>
+        <button class="btn secondary" id="sortZA" title="Mağaza ismine göre Z→A">Z → A</button>
+        <div class="chip"><span>Sonuç:</span> <b id="count">0</b></div>
+        <div class="grow"></div>
+        <button class="btn" id="reset">Filtreleri Sıfırla</button>
+      </div>
+
+      <div id="list" class="list"></div>
+      <div id="empty" class="empty" style="display:none;">Kriterlere uygun sonuç bulunamadı.</div>
+    </div>
+
+    <div class="footnote">
+      Not: “Yol Tarifi” butonu Google Maps’e gider. “Ara” butonu telefon araması başlatır (mobilde direkt çalışır).
+    </div>
+  </div>
+
+<script>
+  // 1) BAYİ VERİLERİ — burayı kendi listenle değiştir
+  // Zorunlu alanlar: name, city, district, address
+  // Opsiyonel: phone, tags[], lat, lng, appointmentUrl, detailUrl
+  const DEALERS = [
+    {
+      name: "Akan BMW",
+      city: "Ankara",
+      district: "Yenimahalle",
+      address: "İvedik OSB 88. 1.Bölge 1524. Cadde No:53 Yenimahalle/Ankara",
+      phone: "+90 312 394 70 77",
+      tags: ["Bayi"],
+      lat: 40.00214, lng: 32.76194,
+    },
+    {
+      name: "Bahar İş Makinaları",
+      city: "Ankara",
+      district: "Yenimahalle",
+      address: "İvedikköy, 2286. Sk. NO:62, 06374 Yenimahalle/Ankara",
+      phone: "+90 549 536 06 18",
+      tags: ["Bayi"],
+      lat: 39.99626, lng: 32.73468
+    },
+    {
+      name: "ANKAREF İstanbul Avrupa Bayi",
+      city: "İstanbul",
+      district: "Şişli",
+      address: "Büyükdere Cd. No:00 Şişli/İstanbul",
+      phone: "02120000000",
+      tags: ["Satış", "Proje"]
+    }
+  ];
+
+  const $ = (id) => document.getElementById(id);
+
+  // Türkçe karakter toleransı + küçük harf normalize
+  const norm = (s) => (s || "").toString().trim().toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+  function unique(arr){ return [...new Set(arr)].sort((a,b)=>a.localeCompare(b,"tr")); }
+
+  const citySel = $("city"), districtSel = $("district"), qInp = $("q");
+  const listEl = $("list"), emptyEl = $("empty"), countEl = $("count");
+
+  function fillCities(){
+    const cities = unique(DEALERS.map(d=>d.city));
+    citySel.innerHTML = `<option value="">--Seçiniz--</option>` + cities.map(c=>`<option>${c}</option>`).join("");
+  }
+
+  function fillDistricts(){
+    const city = citySel.value;
+    const districts = unique(DEALERS.filter(d=>!city || d.city===city).map(d=>d.district));
+    districtSel.innerHTML = `<option value="">--Seçiniz--</option>` + districts.map(c=>`<option>${c}</option>`).join("");
+  }
+
+  function mapsLink(d){
+    if (typeof d.lat === "number" && typeof d.lng === "number") {
+      return `https://www.google.com/maps?q=${d.lat},${d.lng}`;
+    }
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(d.address)}`;
+  }
+
+  function phoneLink(phone){
+    const p = (phone||"").replace(/[^\d+]/g,"");
+    return p ? `tel:${p}` : "";
+  }
+
+  let currentSort = "AZ"; // AZ | ZA
+
+  function apply(){
+    const city = citySel.value;
+    const district = districtSel.value;
+    const q = norm(qInp.value);
+
+    let out = DEALERS.filter(d=>{
+      if (city && d.city !== city) return false;
+      if (district && d.district !== district) return false;
+
+      if (!q) return true;
+
+      const hay = norm([d.name, d.address, d.city, d.district, (d.tags||[]).join(" ")].join(" "));
+      return hay.includes(q);
+    });
+
+    out.sort((a,b)=>{
+      const cmp = a.name.localeCompare(b.name,"tr");
+      return currentSort==="AZ" ? cmp : -cmp;
+    });
+
+    render(out);
+  }
+
+  function render(items){
+    countEl.textContent = items.length;
+    listEl.innerHTML = "";
+
+    if (!items.length){
+      emptyEl.style.display = "block";
+      return;
+    }
+    emptyEl.style.display = "none";
+
+    listEl.innerHTML = items.map(d=>{
+      const mapUrl = mapsLink(d);
+      const tel = phoneLink(d.phone);
+      const tags = (d.tags||[]).slice(0,6).map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join("");
+      const hasAppt = d.appointmentUrl && d.appointmentUrl !== "#";
+      const hasDetail = d.detailUrl && d.detailUrl !== "#";
+
+      return `
+        <div class="card">
+          <div class="top">
+            <div>
+              <p class="name">${escapeHtml(d.name)}</p>
+              <p class="meta">
+                <b>${escapeHtml(d.city)}</b> · ${escapeHtml(d.district)}<br/>
+                ${escapeHtml(d.address)}
+              </p>
+              ${tags ? `<div class="tags">${tags}</div>` : ``}
+            </div>
+          </div>
+
+          <div class="actions">
+            ${hasAppt ? `<a class="a primary" href="${d.appointmentUrl}" target="_blank" rel="noopener">Randevu Al</a>` : ``}
+            ${tel ? `<a class="a ok" href="${tel}">Ara</a>` : ``}
+            <a class="a" href="${mapUrl}" target="_blank" rel="noopener">Yol Tarifi</a>
+            ${hasDetail ? `<a class="a" href="${d.detailUrl}" target="_blank" rel="noopener">Detay</a>` : ``}
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  function escapeHtml(str){
+    return (str||"").toString()
+      .replaceAll("&","&amp;").replaceAll("<","&lt;")
+      .replaceAll(">","&gt;").replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
+
+  // Events
+  citySel.addEventListener("change", ()=>{ fillDistricts(); apply(); });
+  districtSel.addEventListener("change", apply);
+  qInp.addEventListener("input", apply);
+
+  $("sortAZ").addEventListener("click", ()=>{ currentSort="AZ"; apply(); });
+  $("sortZA").addEventListener("click", ()=>{ currentSort="ZA"; apply(); });
+
+  $("reset").addEventListener("click", ()=>{
+    citySel.value = "";
+    fillDistricts();
+    districtSel.value = "";
+    qInp.value = "";
+    currentSort="AZ";
+    apply();
+  });
+
+  // init
+  fillCities();
+  fillDistricts();
+  apply();
+</script>
+</body>
+</html>
 
