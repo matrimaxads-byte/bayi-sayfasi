@@ -8,28 +8,35 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-  :root{
-  --bg:#ffffff;
-  --card:#ffffff;
-  --muted:#6b7280;
-  --text:#111827;
-  --line:rgba(0,0,0,.08);
-  --btn:#2a6bff;
-  --btn2:#1a2542;
-  --ok:#19c37d;
+ :root{
+  /* Genel */
+  --bg:#f5f7fb;              /* sayfa arka planı */
+  --card:#ffffff;            /* kartlar */
+  --text:#0f172a;            /* ana yazılar (çok koyu) */
+  --muted:#475569;           /* ikincil yazılar */
+  --line:rgba(15,23,42,.08); /* borderlar */
+
+  /* Aksiyon renkleri */
+  --btn:#5066e1;             /* primary buton */
+  --btn2:#e9ecfb;            /* secondary buton bg */
+  --ok:#16a34a;
+
+  /* UI */
   --radius:16px;
-  --shadow: 0 10px 30px rgba(0,0,0,.12);
+  --shadow:0 8px 24px rgba(15,23,42,.08);
+
   font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
-
-    body{ margin:0; background: #ffffff,
-                        var(--bg);
-          color:var(--text); }
+  body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+}
     .wrap{ max-width:1100px; margin:0 auto; padding:0px 16px 40px; }
     .hero{ display:flex; gap:18px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; }
     h1{ font-size:28px; margin:0 0 6px; letter-spacing:-.02em; }
     .sub{ color:var(--muted); margin:0; line-height:1.45; max-width:68ch; }
-    .panel{ margin-top:0px; background:rgba(17,26,46,.72); border:1px solid var(--line);
+    .panel{ margin-top:0px; background: transparent; border:1px solid var(--line);
             border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; }
     .controls{ padding:16px; display:grid; grid-template-columns: 1fr 1fr 1.6fr;
               gap:10px; border-bottom:1px solid var(--line); }
@@ -38,7 +45,7 @@
 
     .field{ display:flex; flex-direction:column; gap:6px; }
     label{ font-size:12px; color:var(--muted); }
-    select,input{ background:rgba(10,16,32,.7); color:var(--text);
+    select,input{ background:#ffffff;; color:var(--text);
                   border:1px solid var(--line); border-radius:12px;
                   padding:10px 12px; outline:none; }
     input::placeholder{ color:rgba(159,176,208,.75); }
@@ -78,6 +85,63 @@
 .sub{
   color:#000000;
 }
+
+    select,
+input{
+  background:#ffffff;
+  color:var(--text);
+  border:1px solid var(--line);
+}
+
+select:focus,
+input:focus{
+  border-color:#5066e1;
+  box-shadow:0 0 0 3px rgba(80,102,225,.12);
+}
+
+  .card{
+  background:var(--card);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+}
+
+.name{
+  color:var(--text);
+}
+
+.meta{
+  color:var(--muted);
+}
+
+  .btn,
+.a.primary{
+  background:#5066e1;
+  color:#ffffff;
+}
+
+.btn:hover,
+.a.primary:hover{
+  background:#3f52c6;
+}
+
+    .btn.secondary{
+  background:var(--btn2);
+  color:var(--text);
+  border:1px solid var(--line);
+}
+
+    .a{
+  background:#f1f3fe;
+  color:#5066e1;
+  border:1px solid rgba(80,102,225,.25);
+}
+
+.a.ok{
+  background:#ecfdf5;
+  color:#166534;
+  border-color:rgba(22,163,74,.25);
+}
+
   </style>
 </head>
 <body>
