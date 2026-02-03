@@ -36,8 +36,13 @@
     .hero{ display:flex; gap:18px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; }
     h1{ font-size:28px; margin:0 0 6px; letter-spacing:-.02em; }
     .sub{ color:var(--muted); margin:0; line-height:1.45; max-width:68ch; }
-    .panel{ margin-top:0px; background: transparent; border:1px solid var(--line);
-            border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; }
+ .panel{
+  margin-top:16px;
+  background:#f1f4f9; /* sayfa bg'den 1 tık koyu */
+  border:1px solid rgba(15,23,42,.06);
+  border-radius:20px;
+  box-shadow:0 4px 12px rgba(15,23,42,.04);
+}
     .controls{ padding:16px; display:grid; grid-template-columns: 1fr 1fr 1.6fr;
               gap:10px; border-bottom:1px solid var(--line); }
     @media (max-width: 900px){ .controls{ grid-template-columns: 1fr 1fr; } }
