@@ -11,56 +11,33 @@
 
   <style>
     :root{
-      /* Genel */
       --bg:#f5f7fb;
       --card:#ffffff;
       --text:#0f172a;
       --muted:#475569;
       --line:rgba(15,23,42,.08);
-
-      /* Aksiyon renkleri */
       --btn:#5066e1;
       --btn2:#e9ecfb;
       --ok:#16a34a;
-
-      /* UI */
       --radius:16px;
       --shadow:0 8px 24px rgba(15,23,42,.08);
-
       font-family:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
-
     *{ box-sizing:border-box; }
-    body{
-      margin:0;
-      background:var(--bg);
-      color:var(--text);
-    }
-
-    .wrap{
-      max-width:1100px;
-      margin:0 auto;
-      padding:0px 16px 40px;
-    }
-
+    body{ margin:0; background:var(--bg); color:var(--text); }
+    .wrap{ max-width:1100px; margin:0 auto; padding:0px 16px 40px; }
     h1{ font-size:28px; margin:0 0 6px; letter-spacing:-.02em; color:#000; }
     .sub{ color:#000; margin:0; line-height:1.45; max-width:68ch; }
-
-    /* PANEL: üst sabit, liste scroll */
     .panel{
       margin-top:16px;
       background:#f1f4f9;
       border:1px solid rgba(15,23,42,.06);
       border-radius:20px;
       box-shadow:0 4px 12px rgba(15,23,42,.04);
-
       display:flex;
       flex-direction:column;
-
-      /* Mobilde daha doğru yükseklik */
       height:calc(100dvh - 40px);
     }
-
     .controls{
       flex:0 0 auto;
       padding:16px;
@@ -74,10 +51,8 @@
     }
     @media (max-width: 900px){ .controls{ grid-template-columns: 1fr 1fr; } }
     @media (max-width: 520px){ .controls{ grid-template-columns: 1fr; } }
-
     .field{ display:flex; flex-direction:column; gap:6px; }
     label{ font-size:12px; color:var(--muted); }
-
     select, input{
       background:#ffffff;
       color:var(--text);
@@ -87,12 +62,10 @@
       outline:none;
     }
     input::placeholder{ color:rgba(159,176,208,.75); }
-
     select:focus, input:focus{
       border-color:#5066e1;
       box-shadow:0 0 0 3px rgba(80,102,225,.12);
     }
-
     .bar{
       flex:0 0 auto;
       display:flex;
@@ -103,7 +76,6 @@
       border-bottom:1px solid var(--line);
       background:#f1f4f9;
     }
-
     .chip{
       font-size:12px;
       color:var(--muted);
@@ -116,7 +88,6 @@
       background:#fff;
     }
     .chip b{ color:var(--text); font-weight:600; }
-
     .btn{
       cursor:pointer;
       border:1px solid transparent;
@@ -134,22 +105,17 @@
     }
     .btn:hover{ filter:brightness(.97); }
     .btn:active{ transform: translateY(1px); }
-
     .grow{ flex:1; }
-
-    /* Liste alanı scroll */
     .list{
       flex:1 1 auto;
       overflow-y:auto;
       -webkit-overflow-scrolling:touch;
       padding:16px;
-
       display:grid;
       grid-template-columns: 1fr 1fr;
       gap:12px;
     }
     @media (max-width: 900px){ .list{ grid-template-columns: 1fr; } }
-
     .card{
       background:var(--card);
       border:1px solid var(--line);
@@ -157,11 +123,9 @@
       padding:14px;
       box-shadow:var(--shadow);
     }
-
     .top{ display:flex; gap:10px; align-items:flex-start; justify-content:space-between; }
     .name{ font-size:15px; font-weight:750; margin:0; color:var(--text); }
     .meta{ color:var(--muted); font-size:13px; margin:6px 0 0; line-height:1.35; }
-
     .tags{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
     .tag{
       font-size:12px;
@@ -171,9 +135,7 @@
       border-radius:999px;
       background:#fff;
     }
-
     .actions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
-
     .a{
       text-decoration:none;
       display:inline-flex;
@@ -187,20 +149,9 @@
       font-weight:650;
       font-size:13px;
     }
-    .a.primary{
-      background:#5066e1;
-      color:#ffffff;
-      border-color:#5066e1;
-    }
+    .a.primary{ background:#5066e1; color:#ffffff; border-color:#5066e1; }
     .a.primary:hover{ background:#3f52c6; border-color:#3f52c6; }
-
-    .a.ok{
-      background:#ecfdf5;
-      color:#166534;
-      border-color:rgba(22,163,74,.25);
-    }
-
-    /* Boş durum - list içinde tam ortalı */
+    .a.ok{ background:#ecfdf5; color:#166534; border-color:rgba(22,163,74,.25); }
     .empty{
       grid-column: 1 / -1;
       padding:26px 16px;
@@ -210,13 +161,8 @@
       border-radius:16px;
       background:#fff;
     }
-
-    /* Scrollbar (opsiyonel) */
     .list::-webkit-scrollbar{ width:8px; }
-    .list::-webkit-scrollbar-thumb{
-      background:rgba(15,23,42,.18);
-      border-radius:10px;
-    }
+    .list::-webkit-scrollbar-thumb{ background:rgba(15,23,42,.18); border-radius:10px; }
   </style>
 </head>
 
@@ -371,7 +317,7 @@
       {
         name: "HP Motors",
         city: "Ankara",
-        district: "Yenimahalle",
+        district: "Etimesgut",
         address: "Şaşmaz Oto Sanayi Sitesi 2531 Sokak no:17/A Etimesgut/Ankara",
         phone: "+90 507 306 62 60",
         tags: ["Bayi"]
@@ -379,7 +325,7 @@
       {
         name: "HP OTO Market",
         city: "Ankara",
-        district: "Yenimahalle",
+        district: "Etimesgut",
         address: "Şaşmaz Oto Sanayi Sitesi 2551 Cadde 2530 Sokak No:4 Etimesgut/Ankara",
         phone: "+90 507 306 62 60",
         tags: ["Bayi"]
@@ -430,7 +376,6 @@
         district: "Etimesgut",
         address: "Bahçekapı Mahallesi 2685. Sokak No:11/263 Etimesgut/Ankara",
         phone: "+90 507 761 06 38",
-        phone: "+90 542 518 90 61",
         tags: ["Bayi"]
       },
       {
@@ -621,7 +566,7 @@
         name: "SYA Madeni Yağ",
         city: "Ankara",
         district: "Yenimahalle",
-        address: "İvedikköy Mahallesi Melih Gökçek Bulvarı  No:149/F Yenimahalle/ANKARA",
+        address: "İvedikköy Mahallesi Melih Gökçek Bulvarı No:149/F Yenimahalle/ANKARA",
         phone: "+90 532 170 09 40",
         tags: ["Bayi"]
       },
@@ -645,7 +590,7 @@
         name: "AYM Giresun",
         city: "Giresun",
         district: "Merkez",
-        address: "Gedikkaya Mahallesi 6.Sokak  No:19/C Merkez/GİRESUN",
+        address: "Gedikkaya Mahallesi 6.Sokak No:19/C Merkez/GİRESUN",
         phone: "+90 545 221 79 93",
         tags: ["Bayi"]
       },
@@ -653,15 +598,15 @@
         name: "Car Servis",
         city: "İstanbul",
         district: "Küçükçekmece",
-        address: "Atakent Mahallesi Kırlangıç Sokak  No:14/2 Küçükçekmece/İSTANVBUL",
+        address: "Atakent Mahallesi Kırlangıç Sokak No:14/2 Küçükçekmece/İSTANBUL",
         phone: "+90 545 221 79 93",
         tags: ["Bayi"]
-      }},
+      },
       {
         name: "Güçlü Ford Servis",
         city: "Malatya",
         district: "Yeşilyurt",
-        address: "Çarmuzu Mahallesi Boncuk Sokak  No:14/1A Yeşilyurt/MALATYA  ",
+        address: "Çarmuzu Mahallesi Boncuk Sokak No:14/1A Yeşilyurt/MALATYA",
         phone: "+90 530 061 26 89",
         tags: ["Bayi"]
       }
@@ -717,9 +662,7 @@
       let out = DEALERS.filter(d=>{
         if (city && d.city !== city) return false;
         if (district && d.district !== district) return false;
-
         if (!q) return true;
-
         const hay = norm([d.name, d.address, d.city, d.district, (d.tags||[]).join(" ")].join(" "));
         return hay.includes(q);
       });
