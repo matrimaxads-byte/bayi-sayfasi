@@ -195,7 +195,7 @@
       { name: "İmpala Motor", city: "İstanbul", district: "Başakşehir", address: "İkitelli OSB Mahallesi Bağcılar Güngören 3.Blok Sokak No:29 Başakşehir/İSTANBUL", phone: "+90 549 601 34 37", tags: ["Bayi"] },
       { name: "Aydın Oto Servis", city: "İstanbul", district: "Kadıköy", address: "Özbey Caddesi No:47 Kadıköy/İSTANBUL", phone: "+90 541 577 21 20", tags: ["Bayi"] },
       { name: "FORTTURA Servis", city: "Ankara", district: "Kahramankazan", address: "Saray Mahallesi 183.Cadde No:1/1 Kahramankazan/ANKARA", phone: "+90 530 583 04 77", tags: ["Bayi"] }
-  ];
+    ];
 
     const $ = (id) => document.getElementById(id);
     const norm = (s) => (s || "").toString().trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -274,3 +274,4 @@
     new ResizeObserver(mxPost).observe(document.body);
   </script>
 </body>
+</html>
